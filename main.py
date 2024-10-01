@@ -1,4 +1,5 @@
 import random  # 导入随机模块
+import re  # 导入正则表达式模块
 
 from pkg.plugin.context import register, handler, llm_func, BasePlugin, APIHost, EventContext
 from pkg.plugin.events import *  # 导入事件类
