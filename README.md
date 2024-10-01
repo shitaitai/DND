@@ -1,4 +1,4 @@
-# HelloPlugin
+# DND骰子Plugin
 
 <!--
 ## 插件开发者详阅
