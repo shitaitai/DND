@@ -20,7 +20,6 @@ class MyPlugin(BasePlugin):
     async def person_normal_message_received(self, ctx: EventContext):
         msg = ctx.event.text_message  # 获取发送的消息内容
         
-        # 匹配 dN 格式的骰子指令，例如 "1d100" 或 "2d12"
         match = re.match(r'(\d+)d(\d+)', msg)
         if match:
             num_dice = int(match.group(1))  # 骰子的数量
@@ -38,6 +37,8 @@ class MyPlugin(BasePlugin):
     async def group_normal_message_received(self, ctx: EventContext):
         msg = ctx.event.text_message  # 获取群消息内容
         
+        self.ap.logger.debug("Received group message: {}".format(msg))  # 添加调试信息
+        
         match = re.match(r'(\d+)d(\d+)', msg)
         if match:
             num_dice = int(match.group(1))
@@ -49,6 +50,8 @@ class MyPlugin(BasePlugin):
             self.ap.logger.debug("Group rolled {}d{} for {}, results: {}, total: {}".format(num_dice, sides, ctx.event.sender_id, results, total))
             ctx.add_return("reply", ["Group rolled: {} (total: {})".format(results, total)])
             ctx.prevent_default()
+        else:
+            self.ap.logger.debug("No valid dice command found in the message.")  # 如果没有匹配到指令
 
     # 插件卸载时触发
     def __del__(self):
